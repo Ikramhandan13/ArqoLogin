@@ -1,0 +1,14 @@
+name: ArqoLogin
+main: com.arqologin.ArqoLoginPlugin
+version: 1.0.0
+api-version: 1.20
+depend: [Floodgate]
+commands:
+  arqologin:
+    description: Administrasi ArqoLogin
+    usage: /<command> <args>
+    permission: arqologin.admin
+permissions:
+  arqologin.admin:
+    default: op
+    description: Akses semua sub-perintah /arqologin

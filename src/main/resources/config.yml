@@ -1,0 +1,42 @@
+# Konfigurasi utama ArqoLogin
+# Semua pesan dapat menggunakan color codes (&) dan akan diproses di MessageUtil
+
+database:
+  type: sqlite # options: sqlite, mysql
+  sqlite-file: auth.db
+  mysql:
+    host: localhost
+    port: 3306
+    database: arqologin
+    username: root
+    password: secret
+
+# batas waktu login/register (detik)
+auth:
+  timeout: 60
+  max-per-ip: 3
+  ip-lockout-minutes: 15
+  password:
+    min-length: 6
+    disallow-common: true
+  username:
+    pattern: "^[A-Za-z0-9_]{3,16}$"
+
+# pesan default
+enabled: true
+messages:
+  welcome-new: "&a&lSELAMAT DATANG"
+  welcome-back: "&c&lLOGIN"
+  timeout-kick: "&cKamu tidak memasukkan kata sandi dalam waktu yang ditentukan."
+  chat-prompt: "&eSilakan gunakan command /register <pass> atau /login <pass> di chat!"
+  support-info: "&aHubungi staff di discord.example.com"
+  ip-lockout: "&cTerjadi terlalu banyak percobaan, coba lagi nanti."
+  unregister-warning: "&c⚠️ UUID data may be lost after performing this operation. Don't be confused with the /arqologin unregister"
+
+# bossbar warna
+bossbar:
+  color: RED
+  style: SOLID
+
+# Folia-compatible scheduler
+# (tidak perlu dikonfigurasi)
