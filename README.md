@@ -1,67 +1,42 @@
-# ArqoLogin Plugin
+# ArqoLogin 🛡️
 
-Plugin Spigot/Paper untuk otentikasi pemain (login/register) dengan
-support Java dan Bedrock (via Floodgate). Dirancang modular dengan
-PacketEvents v2, Floodgate API, dan kompatibel dengan Folia.
+Plugin otentikasi (Login/Register) Spigot/Paper yang ringan dan sangat stabil, dirancang dengan **Native Spigot API** untuk kompatibilitas versi Minecraft yang luas dan performa maksimal.
 
-## Fitur Utama
+## ✨ Fitur Utama
+- **Native Spigot Implementation:** Bebas dari ketergantungan PacketEvents/ProtocolLib yang sering pecah saat update Minecraft.
+- **Java & Bedrock Support:** Otomatis mendeteksi pemain Bedrock (via Floodgate) dan menampilkan GUI visual (Cumulus Form).
+- **Void Limbo World:** Memindahkan pemain yang belum login ke dunia hampa (Void) bernama `limb` untuk mencegah lag dan interaksi ilegal.
+- **Keamanan Ekstra (Anti-Bruteforce):**
+  - **IP Lockout:** Blokir IP selama 15 menit jika salah password 3 kali.
+  - **IP Registration Limit:** Maksimal 3 akun per alamat IP.
+  - **24h Session:** Auto-login jika IP dan UUID cocok dalam 24 jam terakhir.
+  - **Password Strict:** Minimal 6 karakter dan proteksi terhadap password pasaran/mirip username.
+- **Visual Timer:** BossBar merah dan ActionBar real-time (60 detik timeout).
+- **Folia Compatible:** Menggunakan scheduler yang aman untuk server modern.
 
-- Multi-database (SQLite/MySQL) dengan hashing BCrypt
-- GUI hybrid: Sign virtual untuk Java, Cumulus custom form untuk Bedrock
-- "Close to chat" behavior
-- Limbo world ringan (void world) untuk pemain belum auth
-- Proteksi jaringan: batalkan paket pergerakan, interaksi, chat false
-- BossBar & ActionBar timeout 60 detik
-- Username/password validasi ketat, brute-force/IP lockout
-- Premium auto-login & sesi IP
-- Admin commands
+## 🛠️ Kompatibilitas
+- **Server:** Spigot, Paper, Purpur, Pufferfish, Folia.
+- **Versi:** 1.16.5, 1.17.x, 1.18.x, 1.19.x, 1.20.x, 1.21.x.
+- **Java:** Minimal Java 17.
+- **Dependencies:** [Floodgate 2.0](https://github.com/GeyserMC/Floodgate) (Wajib untuk Bedrock support).
 
-## Struktur Proyek
+## 📜 Perintah & Izin
+- `/login <password>` - Masuk ke akun.
+- `/register <password>` - Mendaftar akun baru.
+- `/arqologin <subcommand>` - Administrasi (Permission: `arqologin.admin`)
+  - `support` - Info bantuan.
+  - `setspawn` - Set lokasi spawn di dunia Limbo.
+  - `forcelogin <player>` - Paksa pemain masuk.
+  - `dupeip <player/ip>` - Cek akun ganda di IP yang sama.
+  - `unregister <player>` - Hapus password pemain.
+  - `delete <player>` - Hapus total data pemain.
 
-```
-src/main/java/com/arqologin/
-  - ArqoLoginPlugin.java (main)
-  - auth/ (AuthManager, AuthConfig, LimboSession, TimerManager)
-  - config/ (ConfigHandler)
-  - database/ (DatabaseManager, UserRecord, FileDatabase, DatabaseType)
-  - gui/ (GUIManager, SignUtil)
-  - limbo/ (LimboManager)
-  - listeners/ (PacketEventListener, PlayerJoinListener)
-  - commands/ (AdminCommandExecutor)
-  - utils/ (SchedulerUtil, MessageUtil)
-resources/
-  - plugin.yml
-  - config.yml
-```
-
-Semua operasi database berjalan asynchronous, scheduler Folia-aware
-menggunakan `SchedulerUtil`.
-
-## Build
-
-Gunakan Maven (`pom.xml`) atau Gradle (`build.gradle`) untuk mengompilasi.
-Depends: PacketEvents, Floodgate-api, Cumulus, PaperLib, jBCrypt.
-
+## 🏗️ Cara Build
+Pastikan Anda memiliki Maven terinstal, lalu jalankan:
 ```bash
 mvn clean package
-# atau
-gradle build
 ```
-
-## Penggunaan
-
-1. Salin `ArqoLogin.jar` ke folder `plugins` server Paper/Bukkit.
-2. Jalankan server, edit `config.yml` sesuai kebutuhan (database, pesan).
-3. Restart, plugin akan membuat world `limb` dan tabel database.
-
-> Perhatikan: world `limb` dihasilkan dengan generator void sederhana.
-
-## Catatan Kode
-
-Semua kelas dilengkapi komentar berbahasa Indonesia.
-Fitur tambahan seperti IP lockout dan session tracking perlu diimplementasi
-lengkap pada `AuthManager` dan `DatabaseManager`.
+File `.jar` akan tersedia di folder `target/`.
 
 ---
-
-dokumentasi lebih lanjut tersedia di sumber kode.
+*Dibuat dengan ❤️ untuk stabilitas server Minecraft Anda.*
